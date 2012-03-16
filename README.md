@@ -56,7 +56,7 @@ You only have to do the following once:
   - fix the permissions on the key files: `chmod 600 knife/credentials/*.pem`
 
 * create a .chef link from the chimpstation-homebase repo
-- 'ln -s knife .chef'
+  - 'ln -s knife .chef'
 
 Commands like `knife client list` should now work; note that you have to cd into the chimpstation to do so.
   
