@@ -38,11 +38,27 @@ You only have to do the following once:
         ln -s ./knife .chef
         git add . ; git commit -m "set up credentials pointers"
         
+* chimpstation repo:
+  - clone your chimpstation-homebase repo to your machine, into the directory you'll use (`${chimpstation}`)
+
+        git clone git@github.com:infochimps-labs/chimpstation-homebase.git chimpstation
+        cd chimpstation
+        git submodule update --init
+        git submodule foreach git checkout master
+        ln -s ./knife .chef
+
+  - grab the credentials repo from a co-worker, and put it as `knife/${organization}-credentials`.
+
 * chef organization  
   - go to opscode, create a chef organization. 
   - download the `${organization}-validator.pem` to `knife/credentials`
   - copy your chef server user key to `knife/credentials/${chef_user}.pem`
   - fix the permissions on the key files: `chmod 600 knife/credentials/*.pem`
+
+* create a .chef link from the chimpstation-homebase repo
+- 'ln -s knife .chef'
+
+Commands like `knife client list` should now work; note that you have to cd into the chimpstation to do so.
   
 * populate the chef server:
 
@@ -63,19 +79,6 @@ You only have to do the following once:
         rbenv rehash
         echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
         gem install chef 
-
-* chimpstation repo:
-  - clone your chimpstation-homebase repo to your machine, into the directory you'll use (`${chimpstation}`)
-  
-        git clone git@github.com:infochimps-labs/chimpstation-homebase.git chimpstation 
-        cd chimpstation
-        git submodule update --init
-        git submodule foreach git checkout master
-        ln -s ./knife .chef
-
-  - grab the credentials repo from a co-worker, and put it as `knife/${organization}-credentials`.
-  
-Commands like `knife client list` should now work; note that you have to cd into the chimpstation to do so.
 
 * initialize workstation
   - in the `clusters/workstation.rb` file, add a facet named for yourself (`${chef_user}`)
